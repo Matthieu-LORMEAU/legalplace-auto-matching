@@ -1,0 +1,5 @@
+#!/bin/sh
+# Format and lint the staged files, then check the architecture rules. Enable with: npm run prepare
+npx @biomejs/biome check --write --staged --no-errors-on-unmatched || exit 1
+git diff --cached --name-only --diff-filter=ACM | xargs -r git add
+npx dependency-cruiser src main.ts db.ts format-report.ts --config .dependency-cruiser.cjs
