@@ -7,3 +7,6 @@ export const db = new Pool({
   password: process.env.PGPASSWORD ?? 'postgres',
   database: process.env.PGDATABASE ?? 'matching',
 });
+
+// A broken idle connection must not crash the whole process with an unhandled 'error' event.
+db.on('error', (error) => console.error('Unexpected database error', error));
